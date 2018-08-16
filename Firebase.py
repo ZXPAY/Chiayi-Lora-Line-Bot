@@ -17,38 +17,39 @@ time,>=,2018-04-24 07:00:00
 #    CO2                 (IS)
 #    LPG                 (LS)
 #    PM                  (MS)
-#    Fire                (FS)
-#    Wind Velocity       (WS)
-#    Rain                (RS)
+#    Fire                (FS) X
+#    Wind Velocity       (WS) X
+#    Rain                (RS) X
 #
 #    Outdoor:
 #    Temperature         (TS)
 #    Humidity            (HS)
 #    CO2                 (IS)
 #    PM                  (MS)
-#    Wind Velocity       (WS)
-#    Rain                (RS)
+#    Wind Velocity       (WS) X
+#    Rain                (RS) X
 #    Atmospheric Press   (AS)
-#    Latitude            (DS)
-#    Longitude           (NS)
-#    DNList = [DS,NS]
+#    Latitude            (DS) X
+#    Longitude           (NS) X
+#    DNList = [DS,NS]    (NDS)
 
 Data_Name_English = {
         'TS':'Temperature', 'HS':'Humidity', 'CS':'CO',
         'IS':'CO2', 'LS':'C3H8', 'MS':'PM', 'FS':'Fire',
         'WS':'Wind Velocity', 'RS':'Rain', 'Atmosphere':'Pressure',
-        'DS':'Latitude', 'NS':'Longitude', 'AS':'Atmosphere'
+        'DS':'DNS', 'NS':'DNS', 'AS':'Atmosphere',
+        'DNS':'DNS'
         }
 Data_Unit_English = {
         'TS':'\u00b0'+'C', 'HS':'%', 'CS':'ppm',
         'IS':'ppm', 'LS':'ppm', 'MS':'\u00b5'+'g/m'+'\u00b3', 'FS':'',
         'WS':'m/s', 'RS':'cm', 'AS':'pa',
-        'DS':'', 'NS':''
+        'DS':'', 'NS':'', 'DNS':''
         }
 Data_English_Name = {
         'Temperature':'TS', 'Humidity':'HS', 'CO':'CS', 'CO2':'IS',
         'LPG':'LS', 'PM':'MS', 'Fire':'FS', 'Wind':'WS', 'Rain':'RS', 'Atmosphere':'AS',
-        'Latitude':'DS', 'longitude':'NS', 'time':'time', 'rssi':'rssi'
+        'Latitude':'DS', 'Longitude':'NS', 'time':'time', 'rssi':'rssi', 'DNS':'DNS'
         }
 
 class myFirebase:
@@ -70,7 +71,8 @@ class myFirebase:
         self.rain_name = ['雨滴感測', '下雨', 'rain', 'rs']
         self.pressure_name = ['氣壓', '海拔', 'as', '大氣壓力', '壓力', 'pressure', 'atmosphere']
         self.latitude = ['緯度', 'latitude', 'ds']
-        self.longitude = ['經度', 'longitule', 'ns']
+        self.longitude = ['經度', 'longitude', 'ns']
+        self.lati_long = ['經緯度', '經度', '緯度', 'latutude', 'longgitude', 'dns', 'ds','latlong', 'ns', 'dnlist']
         self.time_name = ['time', '時間', 'date']
         self.rssi_name = ['rssi']
 
@@ -116,6 +118,8 @@ class myFirebase:
             return 'time'
         elif str_name in self.rssi_name:
             return 'rssi'
+        elif str_name in self.lati_long:
+            return 'DNS'
         else:
             return None
 
@@ -134,6 +138,8 @@ class myFirebase:
             tag = 'indoor1'
         elif cmd_list[0].lower()[0:2] == 'i2':
             tag = 'indoor2'
+        elif cmd_list[0].lower()[0:2] == 'i3':
+            tag = 'indoor3'
         elif cmd_list[0].lower()[0:2] == 'o1':
             tag = 'outdoor1'
         elif cmd_list[0].lower()[0:2] == 'o2':
@@ -142,7 +148,6 @@ class myFirebase:
             error
 
         collection = self.Which_Collection(cmd_list[0].lower()[2:])
-
         if collection is not None:
             if self.Which_Collection(collection.lower()) == 'time':
                 return 'Sorry, we cannot query time.'
@@ -195,12 +200,21 @@ itemperature\n時間,>=,2018-04-27 12:00:00\n時間,<=,2018-04-27 20:15:00'
             for rs in results:
                 if(len(msg)<1000):
                     query_data_dict = rs.to_dict()
+                    #print(query_data_dict)
                     #if ((float(query_data_dict[code_name]) != 0) and (code_name.lower() != 'time')):
-                    msg += query_data_dict['time'] + '👉🏻\n' + Data_Name_English[query_name] \
-                            + ':' + query_data_dict[query_name] + ' ' + Data_Unit_English[query_name]
-                    msg += '\n'
-                    print(query_data_dict)
-                    flag_empty_query_data = False
+                    if query_name == 'DNS':
+                        msg += query_data_dict['time'] + '👉🏻\n' + Data_Name_English[query_name] \
+                                + ':[' + query_data_dict['DNLIST'][0] +',' + query_data_dict['DNLIST'][1]\
+                                + '] ' + Data_Unit_English[query_name]
+                        msg += '\n'
+                        print(query_data_dict)
+                        flag_empty_query_data = False
+                    else:
+                        msg += query_data_dict['time'] + '👉🏻\n' + Data_Name_English[query_name] \
+                                + ':' + query_data_dict[query_name] + ' ' + Data_Unit_English[query_name]
+                        msg += '\n'
+                        print(query_data_dict)
+                        flag_empty_query_data = False
             if flag_empty_query_data:
                 return 'Sorry, data ' + Data_Name_English[query_name]  + ' you queried is empty or your query format is not coorect.\n'
             return msg
@@ -220,11 +234,12 @@ if __name__ == '__main__':
     #Test_cmd = 'oas\ntime,>=,2018-04-00 00:00:00'
     #Test_cmd = 'its\ntime,>=, 2018-05-10 16:00:00'
     #Test_cmd = 'o2is\nis,<=,1000'
-    Test_cmd = 'o2溫度\n時間,<,2018-06-11 22:42:30'
+    Test_cmd = 'o2dns\ntime,<=, 2018-08-20 16:00:00'
 
     myFirebase = myFirebase(json_dir)
-    myFirebase.Create_Ref(collection='InDoor', document='0000000012000008', tag='indoor1')
-    myFirebase.Create_Ref(collection='InDoor', document='0000000012000009', tag='indoor2')
+    myFirebase.Create_Ref(collection='InDoor', document='0000000012000003', tag='indoor1')
+    myFirebase.Create_Ref(collection='InDoor', document='0000000012000008', tag='indoor2')
+    myFirebase.Create_Ref(collection='InDoor', document='0000000012000009', tag='indoor3')
     myFirebase.Create_Ref(collection='OutDoor', document='0000000012000006', tag='outdoor1')
     myFirebase.Create_Ref(collection='OutDoor', document='0000000012000007', tag='outdoor2')
     #print(myFirebase.GrabData('indoor', 'Temperature'))

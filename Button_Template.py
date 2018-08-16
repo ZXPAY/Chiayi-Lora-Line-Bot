@@ -38,13 +38,46 @@ index_template = TemplateSendMessage(alt_text='索引資料 template',
                                   thumbnail_image_url='https://i.imgur.com/ZHguCZH.png',
                                   actions=[
                                           MessageTemplateAction(
-                                                  label='室內資料庫 12000008',
+                                                  label='室內資料庫',
+                                                  text='IndoorDatabase'
+                                                  ),
+                                          MessageTemplateAction(
+                                                  label='室外資料庫',
+                                                  text='OutdoorDatabase'
+                                                  ),
+                                          ])
+                                    )
+                                )
+
+indexIndoor_template = TemplateSendMessage(alt_text='室內資料庫',
+                              template=(ButtonsTemplate(
+                                  title='選擇室內資料庫',
+                                  text='請選擇以下室內資料庫 (示意圖)\n',
+                                  thumbnail_image_url='https://i.imgur.com/SKEVXth.png',
+                                  actions=[
+                                          MessageTemplateAction(
+                                                  label='室內資料庫 12000003',
                                                   text='indoor database1'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='室內資料庫 12000009',
+                                                  label='室內資料庫 12000008',
                                                   text='indoor database2'
                                                   ),
+                                          MessageTemplateAction(
+                                                  label='室內資料庫 12000009',
+                                                  text='indoor database3'
+                                                  ),
+                                          ])
+                                    )
+                                )
+
+
+indexOutdoor_template = TemplateSendMessage(alt_text='室外資料庫',
+                              template=(ButtonsTemplate(
+                                  title='選擇室外資料庫',
+                                  text='請選擇以下室外資料庫 (示意圖)\n',
+                                  thumbnail_image_url='https://i.imgur.com/hMgt7F5.png',
+                                  actions=[
                                           MessageTemplateAction(
                                                   label='室外資料庫 12000006',
                                                   text='outdoor database1'
@@ -57,10 +90,11 @@ index_template = TemplateSendMessage(alt_text='索引資料 template',
                                     )
                                 )
 
+
 ### 索引資料於室內資料庫
 index_indoor_template1 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
-                                  title='室內資料庫 12000008',
+                                  title='室內資料庫 12000003',
                                   text='請選擇您要搜索的資料',
                                   thumbnail_image_url='https://i.imgur.com/PrTZjLa.jpg',
                                   actions=[
@@ -73,10 +107,6 @@ index_indoor_template1 = TemplateSendMessage(alt_text='索引資料 template',
                                                   text='indoor1$_Second'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='火焰,風速,下雨',
-                                                  text='indoor1$_Third'
-                                                  ),
-                                          MessageTemplateAction(
                                                   label='最新室內資料',
                                                   text='recent indoor data1'
                                                   ),
@@ -86,7 +116,7 @@ index_indoor_template1 = TemplateSendMessage(alt_text='索引資料 template',
 
 index_indoor_template1_1 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
-                                  title='室內資料庫 12000008',
+                                  title='室內資料庫 12000003',
                                   text='請選擇您要搜索的資料',
                                   actions=[
                                           MessageTemplateAction(
@@ -107,7 +137,7 @@ index_indoor_template1_1 = TemplateSendMessage(alt_text='索引資料 template',
 
 index_indoor_template1_2 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
-                                  title='室內資料庫 12000008',
+                                  title='室內資料庫 12000003',
                                   text='請選擇您要搜索的資料',
                                   actions=[
                                           MessageTemplateAction(
@@ -126,30 +156,10 @@ index_indoor_template1_2 = TemplateSendMessage(alt_text='索引資料 template',
                                           ])
                                     )
                                 )
-index_indoor_template1_3 = TemplateSendMessage(alt_text='索引資料 template',
-                              template=(ButtonsTemplate(
-                                  title='室內資料庫 12000008',
-                                  text='請選擇您要搜索的資料',
-                                  actions=[
-                                          MessageTemplateAction(
-                                                  label='火焰感測 Fire Detect',
-                                                  text='indoor1$_FS'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='風速 Wind Velocity',
-                                                  text='indoor1$_WS'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='雨量感測 Rain Detect',
-                                                  text='indoor1$_RS'
-                                                  ),
-                                          ])
-                                    )
-                                )
 
 index_indoor_template2 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
-                                  title='室內資料庫 12000009',
+                                  title='室內資料庫 12000008',
                                   text='請選擇您要搜索的資料',
                                   thumbnail_image_url='https://i.imgur.com/PrTZjLa.jpg',
                                   actions=[
@@ -162,10 +172,6 @@ index_indoor_template2 = TemplateSendMessage(alt_text='索引資料 template',
                                                   text='indoor2$_Second'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='火焰,風速,下雨',
-                                                  text='indoor2$_Third'
-                                                  ),
-                                          MessageTemplateAction(
                                                   label='最新室內資料',
                                                   text='recent indoor data2'
                                                   ),
@@ -174,7 +180,7 @@ index_indoor_template2 = TemplateSendMessage(alt_text='索引資料 template',
                                 )
 index_indoor_template2_1 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
-                                  title='室內資料庫 12000009',
+                                  title='室內資料庫 12000008',
                                   text='請選擇您要搜索的資料',
                                   actions=[
                                           MessageTemplateAction(
@@ -195,7 +201,7 @@ index_indoor_template2_1 = TemplateSendMessage(alt_text='索引資料 template',
 
 index_indoor_template2_2 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
-                                  title='室內資料庫 12000009',
+                                  title='室內資料庫 12000008',
                                   text='請選擇您要搜索的資料',
                                   actions=[
                                           MessageTemplateAction(
@@ -214,28 +220,72 @@ index_indoor_template2_2 = TemplateSendMessage(alt_text='索引資料 template',
                                           ])
                                     )
                                 )
-index_indoor_template2_3 = TemplateSendMessage(alt_text='索引資料 template',
+
+index_indoor_template3 = TemplateSendMessage(alt_text='索引資料 template',
+                              template=(ButtonsTemplate(
+                                  title='室內資料庫 12000009',
+                                  text='請選擇您要搜索的資料',
+                                  thumbnail_image_url='https://i.imgur.com/PrTZjLa.jpg',
+                                  actions=[
+                                          MessageTemplateAction(
+                                                  label='溫度,濕度,一氧化碳',
+                                                  text='indoor3$_First'
+                                                  ),
+                                          MessageTemplateAction(
+                                                  label='二氧化碳,瓦斯,空氣微粒',
+                                                  text='indoor3$_Second'
+                                                  ),
+                                          MessageTemplateAction(
+                                                  label='最新室內資料',
+                                                  text='recent indoor data3'
+                                                  ),
+                                          ])
+                                    )
+                                )
+index_indoor_template3_1 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
                                   title='室內資料庫 12000009',
                                   text='請選擇您要搜索的資料',
                                   actions=[
                                           MessageTemplateAction(
-                                                  label='火焰感測 Fire Detect',
-                                                  text='indoor2$_FS'
+                                                  label='溫度 Temperature',
+                                                  text='indoor3$_TS'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='風速 Wind Velocity',
-                                                  text='indoor2$_WS'
+                                                  label='濕度 Humidity',
+                                                  text='indoor3$_HS'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='雨量感測 Rain Detect',
-                                                  text='indoor2$_RS'
+                                                  label='一氧化碳 CO',
+                                                  text='indoor3$_CS'
                                                   ),
                                           ])
                                     )
                                 )
 
-### 索引資料於室外資料庫
+index_indoor_template3_2 = TemplateSendMessage(alt_text='索引資料 template',
+                              template=(ButtonsTemplate(
+                                  title='室內資料庫 12000009',
+                                  text='請選擇您要搜索的資料',
+                                  actions=[
+                                          MessageTemplateAction(
+                                                  label='二氧化碳 CO2',
+                                                  text='indoor3$_IS'
+                                                  ),
+                                          MessageTemplateAction(
+                                                  label='液化石油氣 LPG',
+                                                  text='indoor3$_LS'
+                                                  ),
+                                          MessageTemplateAction(
+                                                  label='空氣微粒 PM',
+                                                  text='indoor3$_MS'
+                                                  ),
+
+                                          ])
+                                    )
+                                )
+
+### 索引資料於室外資料庫 ####################################
 index_outdoor_template1 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
                                   title='室外資料庫 12000006',
@@ -247,12 +297,8 @@ index_outdoor_template1 = TemplateSendMessage(alt_text='索引資料 template',
                                                   text='outdoor1$_First'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='空氣微粒,風速,雨量',
+                                                  label='空氣微粒,氣壓,經緯度',
                                                   text='outdoor1$_Second'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='大氣壓力,緯度,經度',
-                                                  text='outdoor1$_Third'
                                                   ),
                                           MessageTemplateAction(
                                                   label='最新室外資料',
@@ -282,6 +328,7 @@ index_outdoor_template1_1 = TemplateSendMessage(alt_text='索引資料 template'
                                           ])
                                     )
                                 )
+
 index_outdoor_template1_2 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
                                   title='室外資料庫 12000006',
@@ -292,36 +339,18 @@ index_outdoor_template1_2 = TemplateSendMessage(alt_text='索引資料 template'
                                                   text='outdoor1$_MS'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='風速 Wind Velocity',
-                                                  text='outdoor1$_WS'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='雨量感測 Rain Detect',
-                                                  text='outdoor1$_RS'
-                                                  ),
-                                          ])
-                                    )
-                                )
-index_outdoor_template1_3 = TemplateSendMessage(alt_text='索引資料 template',
-                              template=(ButtonsTemplate(
-                                  title='室外資料庫 12000006',
-                                  text='請選擇您要搜索的資料',
-                                  actions=[
-                                           MessageTemplateAction(
                                                   label='大氣氣壓 Pressure',
                                                   text='outdoor1$_AS'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='緯度 Latitude',
-                                                  text='outdoor1$_DS'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='經度 Longitude',
-                                                  text='outdoor1$_NS'
+                                                  label='緯緯度 Lati,Long',
+                                                  text='outdoor1$_DNS'
                                                   ),
                                           ])
                                     )
                                 )
+
+
 index_outdoor_template2 = TemplateSendMessage(alt_text='索引資料 template',
                               template=(ButtonsTemplate(
                                   title='室外資料庫 12000007',
@@ -333,12 +362,8 @@ index_outdoor_template2 = TemplateSendMessage(alt_text='索引資料 template',
                                                   text='outdoor2$_First'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='空氣微粒,風速,雨量',
+                                                  label='空氣微粒,壓力,經緯度',
                                                   text='outdoor2$_Second'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='大氣壓力,緯度,經度',
-                                                  text='outdoor2$_Third'
                                                   ),
                                           MessageTemplateAction(
                                                   label='最新室外資料',
@@ -378,32 +403,12 @@ index_outdoor_template2_2 = TemplateSendMessage(alt_text='索引資料 template'
                                                   text='outdoor2$_MS'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='風速 Wind Velocity',
-                                                  text='outdoor2$_WS'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='雨量感測 Rain Detect',
-                                                  text='outdoor2$_RS'
-                                                  ),
-                                          ])
-                                    )
-                                )
-index_outdoor_template2_3 = TemplateSendMessage(alt_text='索引資料 template',
-                              template=(ButtonsTemplate(
-                                  title='室外資料庫 12000007',
-                                  text='請選擇您要搜索的資料',
-                                  actions=[
-                                           MessageTemplateAction(
                                                   label='大氣氣壓 Pressure',
                                                   text='outdoor2$_AS'
                                                   ),
                                           MessageTemplateAction(
-                                                  label='緯度 Latitude',
-                                                  text='outdoor2$_DS'
-                                                  ),
-                                          MessageTemplateAction(
-                                                  label='經度 Longitude',
-                                                  text='outdoor2$_NS'
+                                                  label='緯緯度 Lati,Long',
+                                                  text='outdoor2$_DNS'
                                                   ),
                                           ])
                                     )

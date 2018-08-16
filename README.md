@@ -46,27 +46,19 @@
 
 ##   Indoor:
 #### Temperature         (TS) 溫度(°C)
-#### Humidity            (HS) 濕度(%) 
+#### Humidity            (HS) 濕度(%)
 #### CO                  (CS) 一氧化碳(ppm)
 #### CO2                 (IS) 二氧化碳(ppm)
 #### LPG                 (LS) 液化石油氣(ppm)
 #### PM                  (MS) 空氣微粒(μg/m³)
-#### Fire                (FS) 火焰感測(0 or 1)
-#### Wind Velocity       (WS) 風速感測(m/s)
-#### Rain                (RS) 雨量感測器(cm)
 
 ##    Outdoor:
 #### Temperature         (TS) 溫度(°C)
-#### Humidity            (HS) 濕度(%) 
+#### Humidity            (HS) 濕度(%)
 #### CO2                 (IS) 二氧化碳(ppm)
 #### PM                  (MS) 空氣微粒(μg/m³)
-#### Wind Velocity       (WS) 風速感測(m/s)
-#### Rain                (RS) 雨量感測器(cm)
 #### Atmospheric Press   (AS) 大氣壓力(pa)
-#### altitude            (DS) 緯度
-#### Longitude           (NS) 經度
-#### DNList = [DS,NS]
-
+#### altitude, Longitude (DNS) (DNLIST) 經緯度
 
 ## Deploy
 #### $git add .
@@ -76,6 +68,3 @@
 ## 刪除之前的檔案，重新上傳
 #### $heroku plugins:install heroku-repo
 #### $heroku repo:purge_cache -a APPNAME
-
-
-

@@ -14,9 +14,8 @@ from linebot.models import *
 from Button_Template import *
 from words import *
 
-
-CHANNEL_TOKEN_KEY = 'Your line-bot token key'
-CHANNEL_SECRET = 'Your line-bot channel-secret'
+CHANNEL_TOKEN_KEY = '{Your line-bot token key}'
+CHANNEL_SECRET = '{Your line-bot chennel secret key}'
 
 
 app = Flask(__name__)
@@ -29,8 +28,9 @@ handler = WebhookHandler(CHANNEL_SECRET)
 ### Create firebase object
 json_dir = 'aquarium-iot.json'
 myfirebase = myFirebase(json_dir)
-myfirebase.Create_Ref(collection='InDoor', document='0000000012000008', tag='indoor1')
-myfirebase.Create_Ref(collection='InDoor', document='0000000012000009', tag='indoor2')
+myfirebase.Create_Ref(collection='InDoor', document='0000000012000003', tag='indoor1')
+myfirebase.Create_Ref(collection='InDoor', document='0000000012000008', tag='indoor2')
+myfirebase.Create_Ref(collection='InDoor', document='0000000012000009', tag='indoor3')
 myfirebase.Create_Ref(collection='OutDoor', document='0000000012000006', tag='outdoor1')
 myfirebase.Create_Ref(collection='OutDoor', document='0000000012000007', tag='outdoor2')
 
@@ -64,7 +64,7 @@ def callback():
 def handle_message(event):
     get_data = 'Nothing to share ...'
     if event.message.text == 'recent indoor data1':
-        msg = 'Indoor 12000008 Below :\n'
+        msg = 'Indoor 12000003 Below :\n'
 
         today_datetime = datetime.datetime.today()
         day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
@@ -77,16 +77,13 @@ def handle_message(event):
         msg += myfirebase.Query('i1'+'is'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('i1'+'ls'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('i1'+'ms'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('i1'+'fs'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('i1'+'ws'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('i1'+'rs'+cmd_tail, sort='DESCENDING', limit_number=1)
 
         message = TextSendMessage(text=msg)
         #message = TextSendMessage(text=event.message.text)
         #message = TextSendMessage(text='Hello world !!!')
         line_bot_api.reply_message(event.reply_token, message)
     elif event.message.text == 'recent indoor data2':
-        msg = 'Indoor 12000009 Below :\n'
+        msg = 'Indoor 12000008 Below :\n'
 
         today_datetime = datetime.datetime.today()
         day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
@@ -98,14 +95,30 @@ def handle_message(event):
         msg += myfirebase.Query('i2'+'is'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('i2'+'ls'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('i2'+'ms'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('i2'+'fs'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('i2'+'ws'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('i2'+'rs'+cmd_tail, sort='DESCENDING', limit_number=1)
 
         message = TextSendMessage(text=msg)
         #message = TextSendMessage(text=event.message.text)
         #message = TextSendMessage(text='Hello world !!!')
         line_bot_api.reply_message(event.reply_token, message)
+    elif event.message.text == 'recent indoor data3':
+        msg = 'Indoor 12000009 Below :\n'
+
+        today_datetime = datetime.datetime.today()
+        day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
+                Check_date_format(today_datetime.hour) + ':' + Check_date_format(today_datetime.minute) + ':' + Check_date_format(today_datetime.second)
+        cmd_tail = '\n' + 'time,<=,' + day
+        msg += myfirebase.Query('i3'+'ts'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('i3'+'hs'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('i3'+'cs'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('i3'+'is'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('i3'+'ls'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('i3'+'ms'+cmd_tail, sort='DESCENDING', limit_number=1)
+
+        message = TextSendMessage(text=msg)
+        #message = TextSendMessage(text=event.message.text)
+        #message = TextSendMessage(text='Hello world !!!')
+        line_bot_api.reply_message(event.reply_token, message)
+
     elif event.message.text == 'recent outdoor data1':
         msg = 'Outdoor 12000006 Below :\n'
 
@@ -118,10 +131,8 @@ def handle_message(event):
         msg += myfirebase.Query('o1'+'hs'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('o1'+'is'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('o1'+'ms'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('o1'+'ws'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('o1'+'rs'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('o1'+'as'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('o1'+'ds'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('o1'+'dns'+cmd_tail, sort='DESCENDING', limit_number=1)
         #msg += myfirebase.Query('o1'+'ns'+cmd_tail, sort='DESCENDING', limit_number=1)
 
         message = TextSendMessage(text=msg)
@@ -139,9 +150,8 @@ def handle_message(event):
         msg += myfirebase.Query('o2'+'hs'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('o2'+'is'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('o2'+'ms'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('o2'+'ws'+cmd_tail, sort='DESCENDING', limit_number=1)
-        msg += myfirebase.Query('o2'+'rs'+cmd_tail, sort='DESCENDING', limit_number=1)
         msg += myfirebase.Query('o2'+'as'+cmd_tail, sort='DESCENDING', limit_number=1)
+        msg += myfirebase.Query('o2'+'dns'+cmd_tail, sort='DESCENDING', limit_number=1)
 #        msg += myfirebase.Query('o2'+'ds'+cmd_tail, sort='DESCENDING', limit_number=1)
 #        msg += myfirebase.Query('o2'+'ns'+cmd_tail, sort='DESCENDING', limit_number=1)
 
@@ -150,6 +160,10 @@ def handle_message(event):
     elif event.message.text == '索引資料功能':
         line_bot_api.reply_message(event.reply_token, index_template)
         return 0
+    elif event.message.text == 'IndoorDatabase':
+        line_bot_api.reply_message(event.reply_token, indexIndoor_template)
+    elif event.message.text == 'OutdoorDatabase':
+        line_bot_api.reply_message(event.reply_token, indexOutdoor_template)
 
     ### Indoor database index ###
     elif event.message.text == 'indoor database1':
@@ -161,9 +175,6 @@ def handle_message(event):
     elif event.message.text == 'indoor1$_Second':
         line_bot_api.reply_message(event.reply_token, index_indoor_template1_2)
         return 0
-    elif event.message.text == 'indoor1$_Third':
-        line_bot_api.reply_message(event.reply_token, index_indoor_template1_3)
-        return 0
     elif event.message.text == 'indoor database2':
         line_bot_api.reply_message(event.reply_token, index_indoor_template2)
         return 0
@@ -173,13 +184,19 @@ def handle_message(event):
     elif event.message.text == 'indoor2$_Second':
         line_bot_api.reply_message(event.reply_token, index_indoor_template2_2)
         return 0
-    elif event.message.text == 'indoor2$_Third':
-        line_bot_api.reply_message(event.reply_token, index_indoor_template2_3)
+    elif event.message.text == 'indoor database3':
+        line_bot_api.reply_message(event.reply_token, index_indoor_template3)
+        return 0
+    elif event.message.text == 'indoor3$_First':
+        line_bot_api.reply_message(event.reply_token, index_indoor_template3_1)
+        return 0
+    elif event.message.text == 'indoor3$_Second':
+        line_bot_api.reply_message(event.reply_token, index_indoor_template3_2)
         return 0
     ### Deal with the indoor data
     elif 'indoor1$_' in event.message.text:
         sensor_key = event.message.text[9:11]
-        msg = 'Newest Indoor 12000008\n'
+        msg = 'Newest Indoor 12000003\n'
 
         today_datetime = datetime.datetime.today()
         day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
@@ -189,14 +206,26 @@ def handle_message(event):
         message = TextSendMessage(text=msg)
         line_bot_api.reply_message(event.reply_token, message)
     elif 'indoor2$_' in event.message.text:
-        sensor_key = event.message.text[9:11]
-        msg = 'Newest Indoor 12000009\n'
+        sensor_key = event.message.text[9:]
+        msg = 'Newest Indoor 12000008\n'
 
         today_datetime = datetime.datetime.today()
         day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
                 Check_date_format(today_datetime.hour) + ':' + Check_date_format(today_datetime.minute) + ':' + Check_date_format(today_datetime.second)
 
         cmd = 'i2' + sensor_key.lower() + '\n' + 'time,<=,' + day
+        msg += myfirebase.Query(cmd, sort='DESCENDING')
+        message = TextSendMessage(text=msg)
+        line_bot_api.reply_message(event.reply_token, message)
+    elif 'indoor3$_' in event.message.text:
+        sensor_key = event.message.text[9:]
+        msg = 'Newest Indoor 12000009\n'
+
+        today_datetime = datetime.datetime.today()
+        day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
+                Check_date_format(today_datetime.hour) + ':' + Check_date_format(today_datetime.minute) + ':' + Check_date_format(today_datetime.second)
+
+        cmd = 'i3' + sensor_key.lower() + '\n' + 'time,<=,' + day
         msg += myfirebase.Query(cmd, sort='DESCENDING')
         message = TextSendMessage(text=msg)
         line_bot_api.reply_message(event.reply_token, message)
@@ -211,9 +240,6 @@ def handle_message(event):
     elif event.message.text == 'outdoor1$_Second':
         line_bot_api.reply_message(event.reply_token, index_outdoor_template1_2)
         return 0
-    elif event.message.text == 'outdoor1$_Third':
-        line_bot_api.reply_message(event.reply_token, index_outdoor_template1_3)
-        return 0
     elif event.message.text == 'outdoor database2':
         line_bot_api.reply_message(event.reply_token, index_outdoor_template2)
         return 0
@@ -223,12 +249,9 @@ def handle_message(event):
     elif event.message.text == 'outdoor2$_Second':
         line_bot_api.reply_message(event.reply_token, index_outdoor_template2_2)
         return 0
-    elif event.message.text == 'outdoor2$_Third':
-        line_bot_api.reply_message(event.reply_token, index_outdoor_template2_3)
-        return 0
     ### Deal with the outdoor data
     elif 'outdoor1$_' in event.message.text:
-        sensor_key = event.message.text[10:12]
+        sensor_key = event.message.text[10:]
         msg = 'Newest Outdoor 12000006\n'
         today_datetime = datetime.datetime.today()
         day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
@@ -241,7 +264,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif 'outdoor2$_' in event.message.text:
-        sensor_key = event.message.text[10:12]
+        sensor_key = event.message.text[10:]
         msg = 'Newest Outdoor 12000007\n'
         today_datetime = datetime.datetime.today()
         day = str(today_datetime.year) + '-' + Check_date_format(today_datetime.month) + '-' + Check_date_format(today_datetime.day) + ' ' +\
